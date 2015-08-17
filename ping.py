@@ -98,40 +98,33 @@ class Table(Canvas):
                 indexes.append(co + ro*self.columns)
         return indexes
 
-class ReverseIt(Frame):
+class Ping(Frame):
     """ Main game application """
-
     def __init__ (self, root = None):
         """ Class initialiser """
         super().__init__(root)
-        self.table = Table(self, 6, 6, 40) #setup game field
-        self.setupDiscs()
         self.grid(row = 0, column = 0)
-
-    def setupDiscs(self):
-        """ Fills game grid with discs """
-        self.discs = list()
-        for row in range(self.table.rows):
-            y0, y1 = row*self.table.disc_size + self.table.offset, (row + 1)*self.table.disc_size - self.table.offset
-            for col in range(self.table.columns):
-                x0, x1 = col*self.table.disc_size + self.table.offset, (col + 1)*self.table.disc_size - self.table.offset
-                self.discs.append(Disc(x0, y0, x1, y1, self.table, 0))
-
-    def flipDisc(self, event):
-        """ Turns disc over """
-        row, col = event.y // self.table.disc_size, event.x // self.table.disc_size
-        disc_index = col + row*self.table.columns
-        for disc in self.table.surroundDiscs(row, col):
-            self.discs[disc].turnDisc()
-        if self.checkStatus():
-            quit("Good job!")
-
-    def checkStatus(self):
-        """ Checks if all discs are turned over """
-        for disc in self.discs:
-            if disc.status:
-                return False
-        return True #all discs were turned
+        self.setSliders()
+    
+    def setSliders(self):
+        """ Sets horizontal and vertical sliders """
+        # horizontal slider
+        Label(self, text = "columns: 1").grid(row = 1, column = 1)
+        self.horizontal = Scale(self, orient = HORIZONTAL, length = 200,
+            cursor = "sb_h_double_arrow", showvalue = 0,
+            from_ = 1.0, to = 20.0, command = None)
+        self.horizontal.grid(row = 1, column = 2)
+        Label(self, text = "20").grid(row = 1, column = 3)
+        self.horizontal.set(4)
+        # vertical slider
+        for i, char in enumerate("rows: 1"):
+            Label(self, text = char).grid(row = 2 + i, column = 0)
+        self.vertical = Scale(self, orient = VERTICAL, length = 200,
+            cursor = "sb_v_double_arrow", showvalue = 0,
+            from_ = 1.0, to = 20.0, command = None)
+        self.vertical.grid(row = 2, column = 1)
+        Label(self, text = "20").grid(row = 3 + i, column = 0)
+        self.vertical.set(4)
 
 if __name__ == "__main__":
-    ReverseIt().mainloop()
+    Ping().mainloop()
