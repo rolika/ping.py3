@@ -105,26 +105,35 @@ class Ping(Frame):
         super().__init__(root)
         self.grid(row = 0, column = 0)
         self.setSliders()
+        self.setAppTitle()
     
     def setSliders(self):
         """ Sets horizontal and vertical sliders """
+        Label(self, text = "1").grid(row = 1, column = 0) #common start value
         # horizontal slider
-        Label(self, text = "columns: 1").grid(row = 1, column = 1)
         self.horizontal = Scale(self, orient = HORIZONTAL, length = 200,
             cursor = "sb_h_double_arrow", showvalue = 0,
             from_ = 1.0, to = 20.0, command = None)
-        self.horizontal.grid(row = 1, column = 2)
-        Label(self, text = "20").grid(row = 1, column = 3)
+        self.horizontal.grid(row = 1, column = 1)
+        Label(self, text = "20").grid(row = 1, column = 2)
         self.horizontal.set(4)
+        self.horizontal.bind("<MouseWheel>", self.mouseWheelH)
         # vertical slider
-        for i, char in enumerate("rows: 1"):
-            Label(self, text = char).grid(row = 2 + i, column = 0)
         self.vertical = Scale(self, orient = VERTICAL, length = 200,
             cursor = "sb_v_double_arrow", showvalue = 0,
             from_ = 1.0, to = 20.0, command = None)
-        self.vertical.grid(row = 2, column = 1)
-        Label(self, text = "20").grid(row = 3 + i, column = 0)
+        self.vertical.grid(row = 2, column = 0)
+        Label(self, text = "20").grid(row = 3, column = 0)
         self.vertical.set(4)
+        self.vertical.bind("<MouseWheel>", self.mouseWheelV)
 
+    def mouseWheelH(self, event):
+        """ Handles scroll wheel over horizontal slider """
+        self.horizontal.set(self.horizontal.get() + int(event.delta / 120))
+        
+    def mouseWheelV(self, event):
+        """ Handles scroll wheel over vertical slider """
+        self.vertical.set(self.vertical.get() - int(event.delta / 120))
+        
 if __name__ == "__main__":
     Ping().mainloop()
