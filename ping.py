@@ -157,12 +157,12 @@ class Ping(Frame):
         # horizontal slider
         self.horizontal = Slider(1, 1, self)
         self.horizontal.setHorizontal()
-        Label(self, text = "20").grid(row = 1, column = 2, sticky = SW)
+        Label(self, text = "16").grid(row = 1, column = 2, sticky = SW)
         self.horizontal.set(4)
         # vertical slider
         self.vertical = Slider(2, 0, self)
         self.vertical.setVertical()
-        Label(self, text = "20").grid(row = 3, column = 0, sticky = NE)
+        Label(self, text = "16").grid(row = 3, column = 0, sticky = NE)
         self.vertical.set(4)
 
     def redrawField(self, event):
