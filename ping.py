@@ -49,7 +49,7 @@ class Line:
                                width = self.grid_line, fill = self.grid_color)
 
 class Message:
-    """ Defines a message """
+    """ Defines a message """    
     def __init__(self, x, y, text = ""):
         """ Inits values """
         self.x, self.y, self.text = x, y, text #coords at text is displayed
@@ -65,6 +65,23 @@ class Message:
         """ Changes text to message """
         self.table.itemconfigure(self, text = message)
 
+class Slider(Scale):
+    """ Defines a slider with mousehandling """
+    def __init__(self, ro, co, root = None):
+        """ Inits itself as a slider with it's grid coords """        
+        self.root = root
+        super().__init__(self.root, length = 200, from_ = 1.0, to = 20.0,
+                         command = None)
+        self.grid(row = ro, column = co)
+
+    def setHorizontal(self):
+        """ Describes a horizontal slider """
+        self.["orient"], self.["cursor"] = HORIZONTAL, "sb_h_double_arrow"
+
+    def setVertical(self):
+        """ Describes a horizontal slider """
+        self.["orient"], self.["cursor"] = VERTICAL, "sb_v_double_arrow"
+        
 class Table(Canvas):
     """ Draws game field """
 
@@ -105,14 +122,13 @@ class Ping(Frame):
         super().__init__(root)
         self.grid(row = 0, column = 0)
         self.setSliders()
-        self.setAppTitle()
     
     def setSliders(self):
         """ Sets horizontal and vertical sliders """
         Label(self, text = "1").grid(row = 1, column = 0) #common start value
         # horizontal slider
         self.horizontal = Scale(self, orient = HORIZONTAL, length = 200,
-            cursor = "sb_h_double_arrow", showvalue = 0,
+            cursor = "sb_h_double_arrow", showvalue = 1,
             from_ = 1.0, to = 20.0, command = None)
         self.horizontal.grid(row = 1, column = 1)
         Label(self, text = "20").grid(row = 1, column = 2)
@@ -120,7 +136,7 @@ class Ping(Frame):
         self.horizontal.bind("<MouseWheel>", self.mouseWheelH)
         # vertical slider
         self.vertical = Scale(self, orient = VERTICAL, length = 200,
-            cursor = "sb_v_double_arrow", showvalue = 0,
+            cursor = "sb_v_double_arrow", showvalue = 1,
             from_ = 1.0, to = 20.0, command = None)
         self.vertical.grid(row = 2, column = 0)
         Label(self, text = "20").grid(row = 3, column = 0)
