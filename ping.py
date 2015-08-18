@@ -147,10 +147,6 @@ class Ping(Frame):
         self.setSliders()
         self.redrawField(1) #argument because of event handling
     
-    def setTable(self):
-        """ Draws game table """
-        self.table = Table(2, 1, self, 10, 8, 40)
-    
     def setSliders(self):
         """ Sets horizontal and vertical sliders """
         Label(self, text = "1").grid(row = 1, column = 0, sticky = SE)
