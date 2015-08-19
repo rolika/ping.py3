@@ -9,10 +9,6 @@
 # Aim is to turn all discs. Not all configurations have a solution.
 # 2015 Weisz Roland
 
-# placeholders
-MIN_FIELD_SIZE = 1
-MAX_FIELD_SIZE = 12
-
 from resource.draw import * #import from sub-directory
 from resource.widget import *
 
@@ -26,7 +22,7 @@ class Ping(Frame):
         self.table = Label(self) #placeholder for first time run
         self.setSliders()
         self.redrawField(1) #argument because of event handling
-    
+
     def setSliders(self):
         """ Sets horizontal and vertical sliders """
         Label(self, text = str(MIN_FIELD_SIZE)). \
@@ -68,6 +64,6 @@ class Ping(Frame):
         # discs
         self.discs = self.initDiscs()
         for disc in self.discs: disc.draw()
-        
+
 if __name__ == "__main__":
     Ping().mainloop()
