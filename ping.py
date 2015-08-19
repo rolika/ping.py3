@@ -5,6 +5,11 @@
 # Aim is to turn all discs. Not all configurations have a solution.
 # 2015 Weisz Roland
 
+#global placeholders
+DISC_SIZE = 40 #diameter of a disc
+MIN_ROW = MIN_COLUMN = 1
+MAX_ROW = MAX_COLUMN = 16
+
 from tkinter import *
 
 class Disc:
