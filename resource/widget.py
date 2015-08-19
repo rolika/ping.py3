@@ -63,7 +63,6 @@ class Table(Canvas):
         super().__init__(self.root, width = self.canvas_width,
                          height = self.canvas_height, bg = "ivory")
         self.grid(row = ro, column = co, sticky = NW)
-        self.bind("<Button-1>", self.root.clickDisc)
 
     def gridCoords(self):
         """ Calculates gridline coordinates - two listcomps concatenated """
@@ -83,16 +82,15 @@ class Table(Canvas):
                               row + self.raster - self.offset))
         return coords
 
-
-    def surroundDiscs(self, row, col):
+    def discsToFlip(self, x, y):
         """ Calculates surrounding disc-indexes """
-        indexes = list()
-        for co in range(col-1, col+2):
+        indexes, col, row = list(), x // self.raster, y // self.raster
+        for co in range(col - 1, col + 2):
             if co < 0: continue
-            elif co > self.columns-1: break
-            for ro in range(row-1, row+2):
+            elif co > self.columns - 1: break
+            for ro in range(row - 1, row + 2):
                 if ro < 0: continue
-                elif ro > self.rows-1: break
+                elif ro > self.rows - 1: break
                 if ro == row and co == col: continue
-                indexes.append(co + ro*self.columns)
+                indexes.append(co + ro * self.columns)
         return indexes

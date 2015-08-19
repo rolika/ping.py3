@@ -17,14 +17,14 @@ class Disc:
 
     def draw(self):
         """ Draws a disc with default color"""
-        self.table.create_oval(self.x0, self.y0, self.x1, self.y1,
+        self.disc = self.table.create_oval(self.x0, self.y0, self.x1, self.y1,
                                fill = self.color, width = 0)
 
     def flip(self):
         """ Flips a disc to opposit color """
-        self.color = self.disc_front if self.color == self.disc_back\
+        self.color = self.disc_front if self.color == self.disc_back \
             else self.disc_back
-        self.table.itemconfigure(self, fill = self.color)
+        self.table.itemconfigure(self.disc, fill = self.color)
 
     def check(self):
         """ Checks if disc is turned over """

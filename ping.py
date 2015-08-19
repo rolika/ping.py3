@@ -56,6 +56,8 @@ class Ping(Frame):
         self.table.grid_forget() #placeholder in __init__ needed!
         self.table = Table(2, 1, self,
                            self.horizontal.get(), self.vertical.get())
+
+        self.table.bind("<Button-1>", self.clickDisc)
         # slider length
         self.horizontal["length"] = self.horizontal.get() * self.table.raster
         self.vertical["length"] = self.vertical.get() * self.table.raster
@@ -67,7 +69,8 @@ class Ping(Frame):
 
     def clickDisc(self, event):
         """ Handles mouseclicks on canvas """
-        pass
+        for i in self.table.discsToFlip(event.x, event.y):
+            self.discs[i].flip()
 
 if __name__ == "__main__":
     Ping().mainloop()
