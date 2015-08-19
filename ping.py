@@ -12,6 +12,10 @@
 from resource.draw import * #import from sub-directory
 from resource.widget import *
 
+# placeholders
+START = "READY?"
+SOLVED = "GOOD!"
+
 class Ping(Frame):
     """ Main game application """
     def __init__ (self, root = None):
@@ -67,7 +71,7 @@ class Ping(Frame):
         self.discs = self.initDiscs() #discs needed for further process
         for disc in self.discs: disc.draw()
         # message
-        self.message = Msg(self.table.canvas_width // 2,  self.table.canvas_height // 2, "READY", self.table)
+        self.message = Msg(self.table.canvas_width // 2,  self.table.canvas_height // 2, START, self.table)
         self.message.draw()
 
     def clickDisc(self, event):
@@ -75,9 +79,9 @@ class Ping(Frame):
         self.message.change("")
         for i in self.table.discsToFlip(event.x, event.y):
             self.discs[i].flip()
-        for i in self.discs:
-            if i.check(): return 0
-        self.message.change("GOOD!")
+        for i in self.discs: #check disc colors
+            if i.check(): return 0 #if front color, jump out
+        self.message.change(SOLVED) #else solved
 
 if __name__ == "__main__":
     Ping().mainloop()
