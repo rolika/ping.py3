@@ -75,6 +75,9 @@ class Ping(Frame):
         self.message.change("")
         for i in self.table.discsToFlip(event.x, event.y):
             self.discs[i].flip()
+        for i in self.discs:
+            if i.check(): return 0
+        self.message.change("GOOD!")
 
 if __name__ == "__main__":
     Ping().mainloop()

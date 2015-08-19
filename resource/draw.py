@@ -29,7 +29,7 @@ class Disc:
     def check(self):
         """ Checks if disc is turned over """
         if self.color == self.disc_front: return True
-        return False
+        return False #all discs turned
 
 class Line:
     """ Defines a line for the grid """
