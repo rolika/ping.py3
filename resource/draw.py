@@ -58,7 +58,7 @@ class Msg:
         """ Draws message on canvas, centered """
         self.text = self.table.create_text(self.x, self.y,
                                            text = self.text, fill = "red",
-                                           font = ("monospace", 32))
+                                           font = ("Liberation Mono", 32))
 
     def change(self, message):
         """ Changes text to message """
