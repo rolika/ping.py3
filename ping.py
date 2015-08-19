@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-# PING!
+
+#############
+### PING! ###
+#############
+
 # Given is a table with discs in rows and columns.
 # If player clicks on a disc, all surrounding discs are turned.
 # Aim is to turn all discs. Not all configurations have a solution.
@@ -101,7 +105,6 @@ class Slider(Scale):
         
 class Table(Canvas):
     """ Draws game field """
-
     def __init__ (self, ro, co, root = None, columns = 4, rows = 4,
                   disc_size = 40):
         """ Game field is drawn upon: rows, columns, disc-size """
@@ -114,8 +117,25 @@ class Table(Canvas):
         super().__init__(self.root, width = self.canvas_width,
                          height = self.canvas_height, bg = "ivory")
         self.grid(row = ro, column = co, sticky = NW)
-        #self.bind("<Button-1>", self.root.flipDisc)
-        #self.drawGrid()
+        
+    def gridCoords(self):
+        """ Calculates gridline coordinates - two listcomps concatenated """
+        return \
+        [(x, self.offset, x, self.canvas_height - self.offset) \
+         for x in range(0, self.canvas_width, self.raster)] + \
+        [(self.offset, y, self.canvas_width - self.offset, y) \
+         for y in range(0, self.canvas_height, self.raster)]  
+
+    def discCoords(self):
+        """ Calculates disc coordinates """
+        coords = list()
+        for row in range(0, self.canvas_height, self.raster):
+            for column in range(0, self.canvas_width, self.raster):
+                coords.append((column + self.offset, row + self.offset,
+                              column + self.raster - self.offset,
+                              row + self.raster - self.offset))
+        return coords
+                
 
     def surroundDiscs(self, row, col):
         """ Calculates surrounding disc-indexes """
@@ -156,31 +176,14 @@ class Ping(Frame):
         self.vertical.set(4)
 
     def initGrid(self):
-        """ Calculates gridlines coordinates - two listcomps concatenated """
-        self.gridlines = \
-        [Line(x, self.table.offset,
-              x, self.table.canvas_height - self.table.offset,
-              table = self.table) \
-              for x in range(0, self.table.canvas_width, self.table.raster)] + \
-        [Line(self.table.offset, y,
-              self.table.canvas_width - self.table.offset, y,
-              table = self.table) \
-              for y in range(0, self.table.canvas_height, self.table.raster)]  
+        """ Inits gridline objects """
+        return [Line(*coords, table = self.table) \
+                for coords in self.table.gridCoords()]  
 
     def initDiscs(self):
-        """ Calculates disc-coordinates """
-        self.discs = list()
-        for row in range(self.vertical.get()):
-            for col in range(self.horizontal.get()):
-                self.discs.append(Disc(col * self.table.raster + \
-                                           self.table.offset,
-                                       row * self.table.raster + \
-                                           self.table.offset,
-                                       (col + 1) * self.table.raster - \
-                                           self.table.offset,
-                                       (row + 1) * self.table.raster - \
-                                           self.table.offset,
-                                       table = self.table))
+        """ Inits disc objects """
+        return [Disc(*coords, table = self.table) \
+                for coords in self.table.discCoords()]
 
     def redrawField(self, event):
         """ Redraws game field according to sliders """
@@ -192,10 +195,9 @@ class Ping(Frame):
         self.horizontal["length"] = self.horizontal.get() * self.table.raster
         self.vertical["length"] = self.vertical.get() * self.table.raster
         # lines
-        self.initGrid()
-        for line in self.gridlines: line.draw()
+        for line in self.initGrid(): line.draw()
         # discs
-        self.initDiscs()
+        self.discs = self.initDiscs()
         for disc in self.discs: disc.draw()
         
 if __name__ == "__main__":
