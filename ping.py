@@ -107,8 +107,8 @@ class Table(Canvas):
         """ Game field is drawn upon: rows, columns, disc-size """
         self.root, self.columns, self.rows, self.disc_size =\
             root, columns, rows, disc_size
-        self.offset = self.disc_size // 10
-        self.raster = self.disc_size + self.offset * 2
+        self.offset = self.disc_size // 10 #offset from edge and grid
+        self.raster = self.disc_size + self.offset * 2 #grid-distance
         self.canvas_width = self.columns * self.raster
         self.canvas_height = self.rows * self.raster
         super().__init__(self.root, width = self.canvas_width,
@@ -116,14 +116,6 @@ class Table(Canvas):
         self.grid(row = ro, column = co, sticky = NW)
         #self.bind("<Button-1>", self.root.flipDisc)
         #self.drawGrid()
-
-    def drawGrid(self):
-        """ Draws grid on game field """
-        grid_color, self.offset = "light gray", self.disc_size//10
-        for x in range(0, self.wid, self.disc_size): #vertical lines
-            self.create_line(x, self.offset, x, self.hei-self.offset, fill = grid_color)
-        for y in range(0, self.hei, self.disc_size): #horizontal lines
-            self.create_line(self.offset, y, self.wid-self.offset, y, fill = grid_color)
 
     def surroundDiscs(self, row, col):
         """ Calculates surrounding disc-indexes """
