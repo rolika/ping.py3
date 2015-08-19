@@ -15,7 +15,7 @@ from tkinter import *
 class Slider(Scale):
     """ Defines a slider with mousehandling """
     def __init__(self, ro, co, root = None):
-        """ Inits itself as a slider with it's grid coords """        
+        """ Inits itself as a slider with it's grid coords """
         self.root = root
         super().__init__(self.root, length = 200,
                          from_ = float(MIN_FIELD_SIZE),
@@ -36,19 +36,19 @@ class Slider(Scale):
         self.bind("<MouseWheel>", self.mouseWheelV) #Windows, MacOS
         self.bind("<Button-4>", self.mouseWheelV) #Linux ,scroll down
         self.bind("<Button-5>", self.mouseWheelV) #Linux ,scroll up
-    
+
     def mouseWheelH(self, event):
         """ Handles scroll wheel over horizontal slider """
         self.set(self.get() + event.delta // 120) #Windows,MacOS
         if event.num == 4: self.set(self.get() + 1) #Linux
         elif event.num == 5: self.set(self.get() - 1)
-        
+
     def mouseWheelV(self, event):
         """ Handles scroll wheel over vertical slider """
         self.set(self.get() - event.delta // 120) #Windows,MacOS
         if event.num == 4: self.set(self.get() - 1) #Linux
         elif event.num == 5: self.set(self.get() + 1)
-        
+
 class Table(Canvas):
     """ Draws game field """
     def __init__ (self, ro, co, root = None, columns = 4, rows = 4,
@@ -63,14 +63,15 @@ class Table(Canvas):
         super().__init__(self.root, width = self.canvas_width,
                          height = self.canvas_height, bg = "ivory")
         self.grid(row = ro, column = co, sticky = NW)
-        
+        self.bind("<Button-1>", self.root.clickDisc)
+
     def gridCoords(self):
         """ Calculates gridline coordinates - two listcomps concatenated """
         return \
         [(x, self.offset, x, self.canvas_height - self.offset) \
          for x in range(0, self.canvas_width, self.raster)] + \
         [(self.offset, y, self.canvas_width - self.offset, y) \
-         for y in range(0, self.canvas_height, self.raster)]  
+         for y in range(0, self.canvas_height, self.raster)]
 
     def discCoords(self):
         """ Calculates disc coordinates """
@@ -81,7 +82,7 @@ class Table(Canvas):
                               column + self.raster - self.offset,
                               row + self.raster - self.offset))
         return coords
-                
+
 
     def surroundDiscs(self, row, col):
         """ Calculates surrounding disc-indexes """

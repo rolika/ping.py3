@@ -62,8 +62,12 @@ class Ping(Frame):
         # lines
         for line in self.initGrid(): line.draw()
         # discs
-        self.discs = self.initDiscs()
+        self.discs = self.initDiscs() #discs needed for further process
         for disc in self.discs: disc.draw()
+
+    def clickDisc(self, event):
+        """ Handles mouseclicks on canvas """
+        pass
 
 if __name__ == "__main__":
     Ping().mainloop()
