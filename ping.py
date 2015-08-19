@@ -66,9 +66,13 @@ class Ping(Frame):
         # discs
         self.discs = self.initDiscs() #discs needed for further process
         for disc in self.discs: disc.draw()
+        # message
+        self.message = Msg(self.table.canvas_width // 2,  self.table.canvas_height // 2, "READY", self.table)
+        self.message.draw()
 
     def clickDisc(self, event):
         """ Handles mouseclicks on canvas """
+        self.message.change("")
         for i in self.table.discsToFlip(event.x, event.y):
             self.discs[i].flip()
 

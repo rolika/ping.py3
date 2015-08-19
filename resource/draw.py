@@ -45,19 +45,21 @@ class Line:
         self.table.create_line(self.x0, self.y0, self.x1, self.y1,
                                width = self.grid_line, fill = self.grid_color)
 
-class Message:
-    """ Defines a message """
-    def __init__(self, x, y, text = ""):
+class Msg:
+    """ Defines a message on canvas """
+    def __init__(self, x, y, text, table):
         """ Inits values """
         self.x, self.y, self.text = x, y, text #coords at text is displayed
-        self.font_height, self.font_color, self.font_type =\
-            32, "red", "monospace" #font properties
+        self.table = table #canvas
+        #self.font_height, self.font_color, self.font_type =\
+        #    32, "red", "monospace" #font properties
 
-    def draw(self, canvas):
+    def draw(self):
         """ Draws message on canvas, centered """
-        self.table.create_text(self.x, self.y, text = self.text,\
-            font = (self.font_type, self.font_height, self.font_color))
+        self.text = self.table.create_text(self.x, self.y,
+                                           text = self.text, fill = "red",
+                                           font = ("monospace", 32))
 
     def change(self, message):
         """ Changes text to message """
-        self.table.itemconfigure(self, text = message)
+        self.table.itemconfigure(self.text, text = message)
