@@ -7,11 +7,10 @@
 
 from tkinter import *
 
-class Disc():
+class Disc:
     """ Defines a disc and it's handling methods """
-    def __init__(self, x0, y0, x1, y1,
-                 disc_front = "orange", disc_back = "gray",
-                 table = None):
+    def __init__(self, x0, y0, x1, y1, table = None,
+                 disc_front = "orange", disc_back = "gray"):
         """ Inits values for disc """
         self.x0, self.y0, self.x1, self.y1 = x0, y0, x1, y1 #coords of disc
         self.disc_front, self.disc_back = disc_front, disc_back #colors
@@ -43,7 +42,7 @@ class Line:
         self.grid_color, self.grid_line = grid_color, grid_line #color&width
         self.table = table #canvas
     
-    def draw(self, canvas):
+    def draw(self):
         """ Draws line on canvas """
         self.table.create_line(self.x0, self.y0, self.x1, self.y1,
                                width = self.grid_line, fill = self.grid_color)
@@ -108,8 +107,10 @@ class Table(Canvas):
         """ Game field is drawn upon: rows, columns, disc-size """
         self.root, self.columns, self.rows, self.disc_size =\
             root, columns, rows, disc_size
-        self.canvas_width = self.columns * self.disc_size
-        self.canvas_height = self.rows * self.disc_size
+        self.offset = self.disc_size // 10
+        self.raster = self.disc_size + self.offset * 2
+        self.canvas_width = self.columns * self.raster
+        self.canvas_height = self.rows * self.raster
         super().__init__(self.root, width = self.canvas_width,
                          height = self.canvas_height, bg = "ivory")
         self.grid(row = ro, column = co, sticky = NW)
@@ -144,6 +145,7 @@ class Ping(Frame):
         super().__init__(root)
         self.grid(row = 0, column = 0)
         self.disc_size = 40 #diameter
+        self.table = Label(self) #placeholder for first time run
         self.setSliders()
         self.redrawField(1) #argument because of event handling
     
@@ -161,16 +163,48 @@ class Ping(Frame):
         Label(self, text = "16").grid(row = 3, column = 0, sticky = NE)
         self.vertical.set(4)
 
+    def initGrid(self):
+        """ Calculates gridlines coordinates - two listcomps concatenated """
+        self.gridlines = \
+        [Line(x, self.table.offset,
+              x, self.table.canvas_height - self.table.offset,
+              table = self.table) \
+              for x in range(0, self.table.canvas_width, self.table.raster)] + \
+        [Line(self.table.offset, y,
+              self.table.canvas_width - self.table.offset, y,
+              table = self.table) \
+              for y in range(0, self.table.canvas_height, self.table.raster)]  
+
+    def initDiscs(self):
+        """ Calculates disc-coordinates """
+        self.discs = list()
+        for row in range(self.vertical.get()):
+            for col in range(self.horizontal.get()):
+                self.discs.append(Disc(col * self.table.raster + \
+                                           self.table.offset,
+                                       row * self.table.raster + \
+                                           self.table.offset,
+                                       (col + 1) * self.table.raster - \
+                                           self.table.offset,
+                                       (row + 1) * self.table.raster - \
+                                           self.table.offset,
+                                       table = self.table))
+
     def redrawField(self, event):
         """ Redraws game field according to sliders """
-        try:
-            self.table.grid_forget()
-        except:
-            pass
-        self.table = Table(2, 1, self, self.horizontal.get(),
-                           self.vertical.get())
-        self.horizontal["length"] = self.horizontal.get() * self.disc_size
-        self.vertical["length"] = self.vertical.get() * self.disc_size
+        # table
+        self.table.grid_forget()
+        self.table = Table(2, 1, self,
+                           self.horizontal.get(), self.vertical.get())
+        # slider length
+        self.horizontal["length"] = self.horizontal.get() * self.table.raster
+        self.vertical["length"] = self.vertical.get() * self.table.raster
+        # lines
+        self.initGrid()
+        for line in self.gridlines: line.draw()
+        # discs
+        self.initDiscs()
+        for disc in self.discs: disc.draw()
         
 if __name__ == "__main__":
     Ping().mainloop()
