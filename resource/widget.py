@@ -94,3 +94,22 @@ class Table(Canvas):
                 if ro == row and co == col: continue
                 indexes.append(co + ro * self.columns)
         return indexes
+
+class GameMenu(Frame):
+    """ Creates the game-menu in an own frame """
+    def __init__(self, x, y, root = None):
+        """ Arguments: grid coordinates & parent """
+        super().__init__(root)
+        self.grid(row = y, column = x)
+        self.createGameMenu()
+        self.createHelpMenu()
+
+    def createGameMenu(self):
+        """ Creates the game menu for new and restart """
+        game = Menubutton(self, text = "Game")
+        game.grid(row = 0, column = 0)
+
+    def createHelpMenu(self):
+        """ Creates the help menu for rules and about """
+        hlp = Menubutton(self, text = "Help")
+        hlp.grid(row = 0, column = 1)
