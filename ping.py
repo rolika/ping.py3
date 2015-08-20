@@ -22,12 +22,11 @@ class Ping(Frame):
         """ Class initialiser """
         super().__init__(root)
         self.grid(row = 0, column = 0)
-        #self.disc_size = 40 #diameter
         self.table = Label(self) #placeholder for first time run
-        self.setSliders()
+        self.setWidgets()
         self.redrawField(1) #argument because of event handling
 
-    def setSliders(self):
+    def setWidgets(self):
         """ Sets horizontal and vertical sliders """
         Label(self, text = str(MIN_FIELD_SIZE)). \
                     grid(row = 1, column = 0, sticky = SE)
