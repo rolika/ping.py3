@@ -97,19 +97,19 @@ class Table(Canvas):
 
 class GameMenu(Frame):
     """ Creates the game-menu in an own frame """
-    def __init__(self, x, y, root = None):
+    def __init__(self, ro, co, root):
         """ Arguments: grid coordinates & parent """
         super().__init__(root)
-        self.grid(row = y, column = x)
+        self.grid(row = ro, column = co, columnspan = 3, sticky = W)
         self.createGameMenu()
         self.createHelpMenu()
 
     def createGameMenu(self):
         """ Creates the game menu for new and restart """
-        game = Menubutton(self, text = "Game")
+        game = Menubutton(self, text = "Game", relief = RAISED, width = 6)
         game.grid(row = 0, column = 0)
 
     def createHelpMenu(self):
         """ Creates the help menu for rules and about """
-        hlp = Menubutton(self, text = "Help")
+        hlp = Menubutton(self, text = "Help", relief = RAISED, width = 6)
         hlp.grid(row = 0, column = 1)

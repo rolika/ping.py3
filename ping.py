@@ -43,6 +43,8 @@ class Ping(Frame):
         Label(self, text = str(MAX_FIELD_SIZE)).\
                     grid(row = 3, column = 0, sticky = NE)
         self.vertical.set(4)
+        # game menu
+        gamemenu = GameMenu(0, 0, self)
 
     def initGrid(self):
         """ Inits gridline objects """
