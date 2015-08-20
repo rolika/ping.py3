@@ -99,7 +99,8 @@ class GameMenu(Frame):
     """ Creates the game-menu in an own frame """
     def __init__(self, ro, co, root):
         """ Arguments: grid coordinates & parent """
-        super().__init__(root)
+        self.root = root
+        super().__init__(self.root)
         self.grid(row = ro, column = co, columnspan = 3, sticky = W)
         self.createGameMenu()
         self.createHelpMenu()
@@ -108,8 +109,16 @@ class GameMenu(Frame):
         """ Creates the game menu for new and restart """
         game = Menubutton(self, text = "Game", relief = RAISED, width = 6)
         game.grid(row = 0, column = 0)
+        menu = Menu(game, tearoff = 0)
+        menu.add_command(label = "Restart", command = None)
+        menu.add_command(label = "New game", command = None)
+        game["menu"] = menu
 
     def createHelpMenu(self):
         """ Creates the help menu for rules and about """
         hlp = Menubutton(self, text = "Help", relief = RAISED, width = 6)
         hlp.grid(row = 0, column = 1)
+        menu = Menu(hlp, tearoff = 0)
+        menu.add_command(label = "Rules", command = None)
+        menu.add_command(label = "About", command = None)
+        hlp["menu"] = menu
