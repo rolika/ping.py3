@@ -51,8 +51,6 @@ class Msg:
         """ Inits values """
         self.x, self.y, self.text = x, y, text #coords at text is displayed
         self.table = table #canvas
-        #self.font_height, self.font_color, self.font_type =\
-        #    32, "red", "monospace" #font properties
 
     def draw(self):
         """ Draws message on canvas, centered """
