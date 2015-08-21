@@ -24,7 +24,13 @@ class Ping(Frame):
         self.grid(row = 0, column = 0)
         self.table = Label(self) #placeholder for first time run
         self.setWidgets()
-        self.redrawField(1) #argument because of event handling
+        self.newGame() #argument because of event handling
+
+    def newGame(self):
+        """ Starts new game """
+        self.horizontal.set(4)
+        self.vertical.set(4)
+        self.redrawField(1)
 
     def setWidgets(self):
         """ Sets horizontal and vertical sliders """
@@ -35,13 +41,13 @@ class Ping(Frame):
         self.horizontal.setHorizontal()
         Label(self, text = str(MAX_FIELD_SIZE)). \
                     grid(row = 1, column = 2, sticky = SW)
-        self.horizontal.set(4)
+        #self.horizontal.set(4)
         # vertical slider
         self.vertical = Slider(2, 0, self)
         self.vertical.setVertical()
         Label(self, text = str(MAX_FIELD_SIZE)).\
                     grid(row = 3, column = 0, sticky = NE)
-        self.vertical.set(4)
+        #self.vertical.set(4)
         # game menu
         menubar = GameMenu(0, 0, self)
 

@@ -110,8 +110,8 @@ class GameMenu(Frame):
         game = Menubutton(self, text = "Game", relief = RAISED, width = 6)
         game.grid(row = 0, column = 0)
         menu = Menu(game, tearoff = 0)
+        menu.add_command(label = "New game", command = self.root.newGame)
         menu.add_command(label = "Restart", command = None)
-        menu.add_command(label = "New game", command = None)
         game["menu"] = menu
 
     def createHelpMenu(self):
