@@ -30,11 +30,11 @@ class Ping(Frame):
         """ Starts new game """
         self.horizontal.set(4)
         self.vertical.set(4)
-        self.redrawField(1) #argument because of event handling
+        self.restartGame()
 
     def restartGame(self):
         """ Restarts actual configuration """
-        self.redrawField(1)
+        self.redrawField(1) #argument because of event handling
 
     def setWidgets(self):
         """ Sets horizontal and vertical sliders """
