@@ -121,6 +121,14 @@ class GameMenu(Frame):
         hlp = Menubutton(self, text = "Help", relief = RAISED, width = 6)
         hlp.grid(row = 0, column = 1)
         menu = Menu(hlp, tearoff = 0)
-        menu.add_command(label = "Rules", command = None)
-        menu.add_command(label = "About", command = None)
+        menu.add_command(label = "Rules", command = self.showRules)
+        menu.add_command(label = "About", command = self.showCredit)
         hlp["menu"] = menu
+
+    def showRules(self):
+        """ Shows game rules """
+        pass
+
+    def showCredit(self):
+        """ Shows author and license """
+        pass
