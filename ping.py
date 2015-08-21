@@ -24,12 +24,16 @@ class Ping(Frame):
         self.grid(row = 0, column = 0)
         self.table = Label(self) #placeholder for first time run
         self.setWidgets()
-        self.newGame() #argument because of event handling
+        self.newGame()
 
     def newGame(self):
         """ Starts new game """
         self.horizontal.set(4)
         self.vertical.set(4)
+        self.redrawField(1) #argument because of event handling
+
+    def restartGame(self):
+        """ Restarts actual configuration """
         self.redrawField(1)
 
     def setWidgets(self):
@@ -41,13 +45,11 @@ class Ping(Frame):
         self.horizontal.setHorizontal()
         Label(self, text = str(MAX_FIELD_SIZE)). \
                     grid(row = 1, column = 2, sticky = SW)
-        #self.horizontal.set(4)
         # vertical slider
         self.vertical = Slider(2, 0, self)
         self.vertical.setVertical()
         Label(self, text = str(MAX_FIELD_SIZE)).\
                     grid(row = 3, column = 0, sticky = NE)
-        #self.vertical.set(4)
         # game menu
         menubar = GameMenu(0, 0, self)
 
@@ -73,10 +75,12 @@ class Ping(Frame):
         self.horizontal["length"] = self.horizontal.get() * self.table.raster
         self.vertical["length"] = self.vertical.get() * self.table.raster
         # lines
-        for line in self.initGrid(): line.draw()
+        for line in self.initGrid():
+            line.draw()
         # discs
         self.discs = self.initDiscs() #discs needed for further process
-        for disc in self.discs: disc.draw()
+        for disc in self.discs:
+            disc.draw()
         # message
         self.message = Msg(self.table.canvas_width // 2,  self.table.canvas_height // 2, START, self.table)
         self.message.draw()
