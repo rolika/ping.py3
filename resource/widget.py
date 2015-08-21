@@ -112,7 +112,8 @@ class GameMenu(Frame):
         menu = Menu(game, tearoff = 0)
         menu.add_command(label = "New", command = self.root.newGame)
         menu.add_command(label = "Restart", command = self.root.restartGame)
-        menu.add_command(label = "Quit", command = self.root.winfo_toplevel().destroy)
+        menu.add_command(label = "Quit",
+                         command = self.root.winfo_toplevel().destroy)
         game["menu"] = menu
 
     def createHelpMenu(self):
