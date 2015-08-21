@@ -22,9 +22,14 @@ class Ping(Frame):
         """ Class initialiser """
         super().__init__(root)
         self.grid(row = 0, column = 0)
+        self.decorateWindow()
         self.table = Label(self) #placeholder for first time run
         self.setWidgets()
         self.newGame()
+
+    def decorateWindow(self):
+        """ Adds title and logo """
+        pass
 
     def newGame(self):
         """ Starts new game """
