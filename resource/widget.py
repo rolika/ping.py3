@@ -13,6 +13,13 @@ RULES = """In Ping!, you have to turn around all discs to the opposit color.
 When you left-click a disc, all surrounding discs are turned around, except the clicked one.
 2x2 is simple, just click on each disc once. 4x4 is simple enough too. Others are very hard, and some configurations don't have a solution at all.
 Have fun playing Ping!"""
+LICENSE = """Ping!
+Copyright (c) 2015 Weisz Roland\nweisz.roland@wevik.hu
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+(License: ISC)"""
 
 from tkinter import *
 
@@ -139,4 +146,7 @@ class GameMenu(Frame):
 
     def showCredit(self):
         """ Shows author and license """
-        pass
+        window = Toplevel(self)
+        Message(window, width = 300, font = ("Liberation Mono", "10"),
+                text = LICENSE).grid()
+        Button(window, text = "OK", command = window.destroy).grid()
