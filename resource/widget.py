@@ -9,6 +9,10 @@
 DISC_SIZE = 40 #diameter of a disc
 MIN_FIELD_SIZE = 1
 MAX_FIELD_SIZE = 12
+RULES = """In Ping!, you have to turn around all discs to the opposit color.
+When you left-click a disc, all surrounding discs are turned around, except the clicked one.
+2x2 is simple, just click on each disc once. 4x4 is simple enough too. Others are very hard, and some configurations don't have a solution at all.
+Have fun playing Ping!"""
 
 from tkinter import *
 
@@ -127,7 +131,11 @@ class GameMenu(Frame):
 
     def showRules(self):
         """ Shows game rules """
-        pass
+        window = Toplevel(self)
+        Message(window, width = 200, font = ("Liberation Mono", "10"),
+                text = RULES).grid()
+        Button(window, text = "OK", command = window.destroy).grid()
+
 
     def showCredit(self):
         """ Shows author and license """
