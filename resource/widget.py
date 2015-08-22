@@ -21,6 +21,8 @@
 # PERFORMANCE OF THIS SOFTWARE.
 
 from tkinter import *
+from tkinter import ttk
+import os
 
 # placeholders
 DISC_SIZE = 40 #diameter of a disc
@@ -154,14 +156,30 @@ class GameMenu(Frame):
     def showRules(self):
         """ Shows game rules """
         window = Toplevel(self)
+        self.decorateWindow(window)
         Message(window, width = 200, font = ("Liberation Mono", "10"),
                 bg = "ivory", fg = "blue", text = RULES).grid()
-        Button(window, text = "OK", command = window.destroy).grid()
+        ttk.Button(window, text = "OK", width = 6,
+                   command = window.destroy).grid()
 
 
     def showCredit(self):
         """ Shows author and license """
         window = Toplevel(self)
+        self.decorateWindow(window)
         Message(window, width = 300, font = ("Liberation Mono", "10"),
                 bg = "ivory", fg = "blue", text = LICENSE).grid()
-        Button(window, text = "OK", command = window.destroy).grid()
+        ttk.Button(window, text = "OK", width = 6,
+                   command = window.destroy).grid()
+
+    def decorateWindow(self, window):
+        """ Adds title and logo """
+        try: #is there an icon?
+            if os.name == "posix": #linux perhaps?
+                icon = PhotoImage(file = "resource/lin_icon.gif")
+                window.tk.call('wm', 'iconphoto', window._w, icon)
+            else: #or window (have no access to mac)
+                self.iconbitmap(default = "resource/win_icon.ico")
+        except: #stating there isn't any icon
+            print("No icon present.")
+        window.title("Ping!")
