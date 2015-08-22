@@ -155,7 +155,7 @@ class GameMenu(Frame):
         """ Shows game rules """
         window = Toplevel(self)
         Message(window, width = 200, font = ("Liberation Mono", "10"),
-                text = RULES).grid()
+                bg = "ivory", fg = "blue", text = RULES).grid()
         Button(window, text = "OK", command = window.destroy).grid()
 
 
@@ -163,5 +163,5 @@ class GameMenu(Frame):
         """ Shows author and license """
         window = Toplevel(self)
         Message(window, width = 300, font = ("Liberation Mono", "10"),
-                text = LICENSE).grid()
+                bg = "ivory", fg = "blue", text = LICENSE).grid()
         Button(window, text = "OK", command = window.destroy).grid()
