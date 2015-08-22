@@ -2,6 +2,8 @@
 ### PING! ###
 #############
 
+# Draw-element classes
+
 # ISC License
 #
 # Copyright (c) 2015 Weisz Roland weisz.roland@wevik.hu
@@ -17,9 +19,6 @@
 # LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 # OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE.
-
-# Draw-element classes
-# 2015 Weisz Roland
 
 class Disc:
     """ Defines a disc and it's handling methods """
