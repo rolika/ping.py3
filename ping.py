@@ -11,6 +11,7 @@
 
 from resource.draw import * #import from sub-directory
 from resource.widget import *
+import os
 
 # placeholders
 START = "READY?"
@@ -29,7 +30,15 @@ class Ping(Frame):
 
     def decorateWindow(self):
         """ Adds title and logo """
-        pass
+        try: #is there an icon?
+            if os.name == "posix": #linux perhaps?
+                icon = PhotoImage(file = "resource/lin_icon.gif")
+                self.master.tk.call('wm', 'iconphoto', self.master._w, icon)
+            else: #or window (have no access to mac)
+                self.master.iconbitmap(default = "resource/win_icon.ico")
+        except: #stating there isn't any icon
+            print("No icon present.")
+        self.master.title("Ping!")
 
     def newGame(self):
         """ Starts new game """
