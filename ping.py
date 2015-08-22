@@ -22,7 +22,6 @@
 
 from resource.draw import * #import from sub-directory
 from resource.widget import *
-import os
 
 # placeholders
 START = "READY?"
