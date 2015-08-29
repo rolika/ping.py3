@@ -174,12 +174,12 @@ class GameMenu(Frame):
 
     def decorateWindow(self, window):
         """ Adds title and logo """
-        #try: #is there an icon?
-        if os.name == "posix": #linux perhaps?
-            icon = PhotoImage(file = "resource/lin_icon.gif")
-            window.tk.call('wm', 'iconphoto', window._w, icon)
-        else: #or window (have no access to mac)
-            window.iconbitmap(default = "resource/win_icon.ico")
-        #except: #stating there isn't any icon
-        #    print("No icon present.")
+        try: #is there an icon?
+            if os.name == "posix": #linux perhaps?
+                icon = PhotoImage(file = "resource/lin_icon.gif")
+                window.tk.call('wm', 'iconphoto', window._w, icon)
+            else: #or window (have no access to mac)
+                window.iconbitmap(default = "resource/win_icon.ico")
+        except: #stating there isn't any icon
+            print("No icon present.")
         window.title("Ping!")
